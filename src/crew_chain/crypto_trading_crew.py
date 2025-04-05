@@ -9,6 +9,7 @@ from src.crew_chain.tools.neural_prediction_tools import DeepLearningPredictionT
 from src.crew_chain.tools.investment_validation_tools import InvestmentValidationTool
 from src.crew_chain.tools.recurring_operations import RecurringOperationTool
 from src.crew_chain.tools.mcp_kafka_connector import MCPKafkaProducerTool, MCPKafkaConsumerTool, KafkaConfig
+from src.crew_chain.tools.mcp_integration import MCPClient, MCPToolWrapper, load_mcp_config
 import logging
 import os
 import json
@@ -28,19 +29,56 @@ class CryptoTradingCrew():
 
     agents_config = 'config/crypto_agents.yaml'
     tasks_config = 'config/crypto_tasks.yaml'
+    mcp_config = 'config/mcp_servers.json'
     
-    def __init__(self, config=None):
+    def __init__(self, config_path=None):
         """Initialize the crypto trading crew with configuration."""
-        self.config = config or {}
+        self.config_path = config_path or self.agents_config
+        self.config = {}  # This will be loaded from the config file
         self.logger = logger
         
-        # Initialize MCP Kafka connectors if enabled
+        # Load MCP configuration if enabled
         if self.config.get("use_mcp", True):
+            self._initialize_mcp()
+        
+        # Initialize MCP Kafka connectors if enabled
+        if self.config.get("use_mcp_kafka", True):
             self._initialize_mcp_kafka()
         
         self.market_data_handlers = {}
         self.trade_signal_handlers = {}
     
+    def _initialize_mcp(self):
+        """Initialize MCP client and tools."""
+        try:
+            # Load MCP server configurations
+            mcp_server_configs = load_mcp_config(self.mcp_config)
+            
+            if not mcp_server_configs:
+                self.logger.warning(f"No MCP server configurations found in {self.mcp_config}")
+                return
+                
+            self.logger.info(f"Loaded {len(mcp_server_configs)} MCP server configurations")
+            
+            # Initialize MCP client
+            self.mcp_client = MCPClient(mcp_server_configs)
+            
+            # Create tool wrappers for available tools
+            self.mcp_tools = {}
+            available_tools = self.mcp_client.get_available_tools()
+            
+            self.logger.info(f"Discovered {len(available_tools)} MCP tools")
+            
+            for tool_name in available_tools:
+                try:
+                    tool_wrapper = MCPToolWrapper(self.mcp_client, tool_name)
+                    self.mcp_tools[tool_name] = tool_wrapper
+                except Exception as e:
+                    self.logger.error(f"Error creating wrapper for MCP tool '{tool_name}': {e}")
+                    
+        except Exception as e:
+            self.logger.error(f"Error initializing MCP client: {e}")
+
     def _initialize_mcp_kafka(self):
         """Initialize MCP Kafka connectors."""
         try:
@@ -405,23 +443,17 @@ class CryptoTradingCrew():
         if self.config.get("use_recurring_operations", True):
             tools.append(RecurringOperationTool())
             
-        # Add MCP Kafka tools if enabled
-        if self.config.get("use_mcp", True):
-            # Initialize Kafka config
-            kafka_config = KafkaConfig(
-                bootstrap_servers=self.config.get("kafka_bootstrap_servers", "localhost:9092"),
-                consumer_group_id=self.config.get("kafka_consumer_group", "crew_chain_consumer"),
-                auto_offset_reset=self.config.get("kafka_auto_offset_reset", "latest"),
-                security_protocol=self.config.get("kafka_security_protocol"),
-                sasl_mechanism=self.config.get("kafka_sasl_mechanism"),
-                sasl_username=self.config.get("kafka_sasl_username"),
-                sasl_password=self.config.get("kafka_sasl_password")
-            )
-            
-            # Add producer and consumer tools
-            tools.append(MCPKafkaProducerTool(config=kafka_config))
-            tools.append(MCPKafkaConsumerTool(config=kafka_config))
-            
+        # Add MCP tools if initialized
+        if hasattr(self, 'mcp_tools') and self.mcp_tools:
+            for tool_name, tool_wrapper in self.mcp_tools.items():
+                # Create a LangChain tool from the MCP tool wrapper
+                mcp_tool = Tool(
+                    name=tool_name,
+                    description=tool_wrapper.description,
+                    func=tool_wrapper
+                )
+                tools.append(mcp_tool)
+        
         return tools
 
     def run(self):

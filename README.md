@@ -114,16 +114,128 @@ This integration enables the system to handle high volumes of real-time market d
 ## Installation
 
 1. Clone this repository:
+```bash
+git clone <repository-url>
+cd crew_chain
+```
+
+2. Install dependencies:
+
+### Using uv (recommended)
+[uv](https://github.com/astral-sh/uv) is a faster, more reliable Python package installer and dependency resolver, up to 10-100x faster than pip.
+
+```bash
+# Install uv if you don't have it
+pip install uv
+
+# Create a virtual environment and install dependencies
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -r requirements.txt
+
+# Generate a lock file for reproducible builds
+uv lock
+```
+
+### Using the installation script
+For the easiest installation, use our provided script:
+
+```bash
+# Make the script executable
+chmod +x install_with_uv.sh
+
+# Run the installation script
+./install_with_uv.sh
+```
+
+This script will:
+1. Install uv if not already installed
+2. Create a virtual environment
+3. Install all dependencies using uv (from requirements.txt or pyproject.toml)
+4. Generate a lock file (uv.lock) for reproducible builds
+
+#### Reproducible builds with uv.lock
+
+Once you have a lock file, you can ensure that all team members and deployment environments use the exact same dependency versions:
+
+```bash
+# Install exact dependency versions from the lock file
+uv sync
+```
+
+This approach prevents "it works on my machine" problems by guaranteeing consistent environments across development and production.
+
+### Using pip (traditional method)
+If you prefer using pip:
+
+```bash
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Running the Application
+
+### Using the run script (recommended)
+
+The easiest way to run the application is with the provided run script:
+
+On Linux/Mac:
+```bash
+# Make the script executable
+chmod +x run.sh
+
+# Run the application
+./run.sh
+```
+
+On Windows:
+```
+# Run the application
+run.bat
+```
+
+These scripts will:
+1. Check if a virtual environment exists, and create one if needed
+2. Run the application using uv, which ensures all dependencies are available
+3. Pass any command-line arguments to the application
+
+### Manual execution
+
+If you prefer to run the application manually:
+
+```bash
+# With uv (recommended - handles dependencies automatically)
+uv run src/crew_chain/crypto_trading_main.py
+
+# Traditional method (requires activated virtual environment)
+python src/crew_chain/crypto_trading_main.py
+```
+
+## Model Context Protocol (MCP) Integration
+
+Crew Chain now includes support for the Model Context Protocol (MCP), enabling integration with various AI services and tools:
+
+- **AI Agent Communication**: Allows agents to communicate with external AI services using the standardized MCP protocol.
+- **MCP Tool Integration**: Supports using external MCP servers as tools within the trading system.
+- **Extensible Architecture**: Easily add new MCP-based capabilities without changing the core system.
+
+The MCP integration enables the system to leverage specialized AI tools from the growing MCP ecosystem for tasks like:
+- Advanced data analysis
+- Market sentiment evaluation
+- Technical pattern recognition
+- Trade decision validation
+
+To use MCP capabilities, follow the standard MCP configuration patterns in your configuration files.
 
 ## Docker Setup
 
 The system can be deployed using Docker, which simplifies setup and ensures consistent environments:
 
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd crew_chain
-
 # Start all services with Docker Compose
 docker-compose up -d
 ```

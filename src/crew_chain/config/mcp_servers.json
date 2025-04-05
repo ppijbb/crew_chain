@@ -1,0 +1,28 @@
+[
+  {
+    "name": "time_server",
+    "url": "https://mcp.so/server/time-mcp-server",
+    "api_key": null,
+    "tools": [
+      "get_current_time",
+      "convert_timezone"
+    ]
+  },
+  {
+    "name": "brave_search",
+    "url": "https://mcp.so/server/brave-search",
+    "api_key": null,
+    "tools": [
+      "search"
+    ]
+  },
+  {
+    "name": "firecrawl",
+    "url": "https://mcp.so/server/firecrawl-mcp-server",
+    "api_key": null, 
+    "tools": [
+      "scrape_webpage",
+      "search_webpage"
+    ]
+  }
+] 
