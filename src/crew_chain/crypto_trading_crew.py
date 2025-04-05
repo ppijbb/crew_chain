@@ -3,6 +3,9 @@ from crewai.project import CrewBase, agent, crew, task
 from langchain_community.tools import DuckDuckGoSearchRun, SearxSearchRun
 from langchain.agents import Tool
 from src.crew_chain.tools.crypto_tools import CryptoPriceCheckTool, CryptoHistoricalDataTool
+from src.crew_chain.tools.deep_search_tools import TwitterSentimentAnalysisTool, DeepMarketAnalysisTool
+from src.crew_chain.tools.advanced_sentiment_tools import MultilayerSentimentAnalysisTool
+from src.crew_chain.tools.neural_prediction_tools import DeepLearningPredictionTool
 import os
 
 @CrewBase
@@ -22,7 +25,10 @@ class CryptoTradingCrew():
                 func=search_tool.run,
                 description="Useful for searching information about cryptocurrency market trends and news"
             ),
-            CryptoPriceCheckTool()
+            CryptoPriceCheckTool(),
+            TwitterSentimentAnalysisTool(),
+            DeepMarketAnalysisTool(),
+            MultilayerSentimentAnalysisTool()
         ]
         
         return Agent(
@@ -42,7 +48,10 @@ class CryptoTradingCrew():
                 description="Useful for researching specific cryptocurrencies and their technology"
             ),
             CryptoPriceCheckTool(),
-            CryptoHistoricalDataTool()
+            CryptoHistoricalDataTool(),
+            TwitterSentimentAnalysisTool(),
+            MultilayerSentimentAnalysisTool(),
+            DeepLearningPredictionTool()
         ]
         
         return Agent(
@@ -56,7 +65,11 @@ class CryptoTradingCrew():
         """Agent responsible for creating trading strategies"""
         tools = [
             CryptoPriceCheckTool(),
-            CryptoHistoricalDataTool()
+            CryptoHistoricalDataTool(),
+            DeepMarketAnalysisTool(),
+            TwitterSentimentAnalysisTool(),
+            MultilayerSentimentAnalysisTool(),
+            DeepLearningPredictionTool()
         ]
         
         return Agent(
@@ -69,7 +82,10 @@ class CryptoTradingCrew():
     def trade_executor(self) -> Agent:
         """Agent responsible for executing trades based on strategies"""
         tools = [
-            CryptoPriceCheckTool()
+            CryptoPriceCheckTool(),
+            DeepMarketAnalysisTool(),
+            MultilayerSentimentAnalysisTool(),
+            DeepLearningPredictionTool()
         ]
         
         return Agent(

@@ -4,11 +4,16 @@ market_analysis_task:
     Research overall market sentiment, identify major market trends, and track significant 
     events or news that could impact the {target_crypto} or the broader market.
     Pay particular attention to market volatility, trading volume, and general market direction.
+    Use deep search tools and sentiment analysis to gain deeper insights into market psychology.
+    Analyze social media sentiment to gauge public opinion and its potential impact on prices.
     Your analysis should include both short-term and medium-term market outlook.
+    Consider both bullish and bearish scenarios to prepare for bidirectional trading opportunities.
   expected_output: >
     A comprehensive market analysis report with clear insights on current market conditions,
     sentiment analysis, key market trends, and potential market-moving events.
-    Include specific implications for {target_crypto} trading.
+    Include detailed sentiment analysis from social media sources and how it correlates with price movements.
+    Identify potential directional shifts that could create opportunities for both long and short positions.
+    Include specific implications for {target_crypto} trading in both upward and downward market scenarios.
   agent: market_analyst
 
 crypto_research_task:
@@ -19,41 +24,62 @@ crypto_research_task:
     Compare current price to historical price ranges to identify if it's trading at relatively 
     low or high prices compared to recent history.
     Identify potential support and resistance levels.
+    Use sentiment analysis to gauge market perception and how it might influence price action.
+    Analyze on-chain metrics to identify accumulation or distribution patterns.
+    Look for divergences between price action, volume, sentiment, and on-chain metrics.
+    Research both bullish and bearish perspectives to maintain objectivity.
   expected_output: >
     A detailed research report on {target_crypto} including fundamental analysis,
     technical analysis with support/resistance levels, price patterns, and a clear assessment
     of whether the cryptocurrency is currently undervalued or overvalued.
+    Include sentiment analysis findings and how they correlate with historical price movements.
+    Identify divergences between different metrics that could signal potential trend changes.
+    Outline both bullish and bearish scenarios with their respective probabilities.
   agent: crypto_researcher
   dependencies: [market_analysis_task]
 
 strategy_development_task:
   description: >
     Based on the market analysis and cryptocurrency research, develop a comprehensive 
-    trading strategy for {target_crypto}.
+    bidirectional trading strategy for {target_crypto}.
     The strategy must adhere to these key principles:
     1. Buy low and sell high through systematic identification of entry and exit points
     2. Implement phased buying and selling (scaling in and out of positions)
     3. Be able to rapidly switch between long and short positions based on market conditions
-    Include specific entry and exit points, position sizing recommendations, risk management 
-    rules, and stop-loss levels.
+    Include specific entry and exit points for both long and short positions.
+    Develop clear criteria for position switching based on technical indicators, price action, and sentiment shifts.
+    Create position sizing recommendations that adjust based on market volatility and conviction level.
+    Define risk management rules and stop-loss levels for both long and short strategies.
+    Incorporate sentiment analysis as leading indicators for potential price movements.
+    Use deep market analysis to identify optimal entry and exit zones.
   expected_output: >
-    A detailed trading strategy document with clear entry and exit points, position sizing 
-    guidelines, risk management rules, and contingency plans for different market scenarios.
-    The strategy should clearly explain the phased buying/selling approach and position switching logic.
+    A detailed bidirectional trading strategy document with clear entry and exit points for both long and short positions.
+    Include position sizing guidelines that adapt to changing market conditions and risk levels.
+    Provide risk management rules with specific stop-loss and take-profit levels.
+    Detail contingency plans for different market scenarios, including sudden trend reversals.
+    Explain the phased buying/selling approach with specific trigger points for each phase.
+    Include a clear framework for position switching with specific indicators and thresholds.
+    Incorporate sentiment analysis signals as early warning indicators for trend shifts.
   agent: trading_strategist
   dependencies: [market_analysis_task, crypto_research_task]
 
 trade_execution_task:
   description: >
-    Execute the trading strategy for {target_crypto} developed by the Trading Strategist.
+    Execute the bidirectional trading strategy for {target_crypto} developed by the Trading Strategist.
     Follow the phased buying/selling approach, adhering strictly to the defined entry and exit points.
     Maintain disciplined risk management according to the strategy.
     Be prepared to quickly switch between long and short positions as indicated by market conditions.
+    Continuously monitor sentiment indicators and deep market analysis for early signs of trend changes.
+    Adjust position sizes based on volatility and conviction levels as defined in the strategy.
     Keep detailed records of all trades executed, including entry and exit prices, position sizes,
-    and the rationale behind each trading decision.
+    conviction levels, sentiment readings, and the rationale behind each trading decision.
+    Document how sentiment analysis and deep market analysis influenced trading decisions.
   expected_output: >
     A comprehensive trading report documenting all executed trades, current positions,
     strategy adherence, and trading performance. Include any adjustments made to the
     original strategy and recommendations for future trades.
+    Track the effectiveness of sentiment analysis signals in predicting price movements.
+    Compare the performance of long vs. short positions and identify which market conditions
+    favored each approach. Provide detailed analytics on trade execution quality and timing.
   agent: trade_executor
   dependencies: [strategy_development_task] 
