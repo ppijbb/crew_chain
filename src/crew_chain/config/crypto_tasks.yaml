@@ -1,0 +1,59 @@
+market_analysis_task:
+  description: >
+    Conduct a thorough analysis of the current cryptocurrency market conditions.
+    Research overall market sentiment, identify major market trends, and track significant 
+    events or news that could impact the {target_crypto} or the broader market.
+    Pay particular attention to market volatility, trading volume, and general market direction.
+    Your analysis should include both short-term and medium-term market outlook.
+  expected_output: >
+    A comprehensive market analysis report with clear insights on current market conditions,
+    sentiment analysis, key market trends, and potential market-moving events.
+    Include specific implications for {target_crypto} trading.
+  agent: market_analyst
+
+crypto_research_task:
+  description: >
+    Conduct in-depth research on {target_crypto}.
+    Analyze its fundamental value, technical aspects, recent price movements, community sentiment,
+    development activity, and any upcoming events or developments.
+    Compare current price to historical price ranges to identify if it's trading at relatively 
+    low or high prices compared to recent history.
+    Identify potential support and resistance levels.
+  expected_output: >
+    A detailed research report on {target_crypto} including fundamental analysis,
+    technical analysis with support/resistance levels, price patterns, and a clear assessment
+    of whether the cryptocurrency is currently undervalued or overvalued.
+  agent: crypto_researcher
+  dependencies: [market_analysis_task]
+
+strategy_development_task:
+  description: >
+    Based on the market analysis and cryptocurrency research, develop a comprehensive 
+    trading strategy for {target_crypto}.
+    The strategy must adhere to these key principles:
+    1. Buy low and sell high through systematic identification of entry and exit points
+    2. Implement phased buying and selling (scaling in and out of positions)
+    3. Be able to rapidly switch between long and short positions based on market conditions
+    Include specific entry and exit points, position sizing recommendations, risk management 
+    rules, and stop-loss levels.
+  expected_output: >
+    A detailed trading strategy document with clear entry and exit points, position sizing 
+    guidelines, risk management rules, and contingency plans for different market scenarios.
+    The strategy should clearly explain the phased buying/selling approach and position switching logic.
+  agent: trading_strategist
+  dependencies: [market_analysis_task, crypto_research_task]
+
+trade_execution_task:
+  description: >
+    Execute the trading strategy for {target_crypto} developed by the Trading Strategist.
+    Follow the phased buying/selling approach, adhering strictly to the defined entry and exit points.
+    Maintain disciplined risk management according to the strategy.
+    Be prepared to quickly switch between long and short positions as indicated by market conditions.
+    Keep detailed records of all trades executed, including entry and exit prices, position sizes,
+    and the rationale behind each trading decision.
+  expected_output: >
+    A comprehensive trading report documenting all executed trades, current positions,
+    strategy adherence, and trading performance. Include any adjustments made to the
+    original strategy and recommendations for future trades.
+  agent: trade_executor
+  dependencies: [strategy_development_task] 
