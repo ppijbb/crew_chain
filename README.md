@@ -93,7 +93,43 @@ The system supports automated scheduling of critical trading operations, ensurin
 
 This automated scheduling system ensures that critical analysis and trading functions occur consistently even in fast-moving markets, maintaining strategic discipline while adapting to changing conditions.
 
+### MCP Kafka Integration
+
+The system now incorporates Message Consumption Protocol (MCP) via Kafka for real-time data streaming and processing:
+
+- **Real-Time Data Flow**: Seamless streaming of market data, trading signals, and system events through Kafka topics.
+- **Bidirectional Communication**: Both publishes trading decisions and consumes market data through the same infrastructure.
+- **Multi-Database Storage**: Automatically stores trading data in both MongoDB (for flexible schema) and PostgreSQL (for structured queries).
+- **Event-Driven Architecture**: Enables reactive trading based on real-time market events through registered handlers.
+
+Key components of the MCP Kafka integration:
+
+- **Kafka Message Broker**: High-throughput, distributed messaging system for real-time data processing.
+- **MongoDB Integration**: For storing unstructured and semi-structured trading data with flexible schemas.
+- **PostgreSQL Integration**: For structured financial data storage and complex analytical queries.
+- **Custom MCP API**: RESTful API service for interacting with the Kafka messaging system.
+
+This integration enables the system to handle high volumes of real-time market data while maintaining data consistency across multiple storage systems, making it suitable for mission-critical financial operations.
+
 ## Installation
 
 1. Clone this repository:
+
+## Docker Setup
+
+The system can be deployed using Docker, which simplifies setup and ensures consistent environments:
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd crew_chain
+
+# Start all services with Docker Compose
+docker-compose up -d
 ```
+
+This will start the following services:
+- Zookeeper and Kafka for message brokering
+- MongoDB and PostgreSQL for data storage
+- Kafka UI, MongoDB Express, and pgAdmin for administration
+- MCP API service for interacting with the system
