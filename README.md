@@ -64,62 +64,36 @@ The system employs a sophisticated bidirectional trading approach:
 - **Adaptive Position Sizing**: Adjusts position sizes based on market volatility and signal conviction
 - **Integrated Risk Management**: Implements specific stop-loss levels for both long and short positions
 
+## Advanced Features
+
+### Investment Validation System
+
+The cryptocurrency trading system includes a robust investment validation system that verifies trading decisions before execution. This adds an essential layer of risk management and helps ensure that all trading actions align with the overall strategy. 
+
+Key features of the investment validation system:
+
+- **Multi-method Validation**: Trading decisions are validated through multiple methods including technical analysis alignment, sentiment correlation, risk assessment, and historical performance comparison.
+- **Risk-Reward Analysis**: Every trade is analyzed for its risk-reward ratio to ensure favorable trading conditions.
+- **Position Sizing Verification**: The system checks that position sizes are appropriate given market volatility and other risk factors.
+- **Comprehensive Reporting**: Detailed validation reports provide actionable insights on trade viability with specific improvement suggestions.
+
+### Recurring Operations
+
+The system supports automated scheduling of critical trading operations, ensuring consistent execution without manual intervention:
+
+- **Flexible Scheduling**: Operations can be scheduled at intervals (minutes/hours), daily at specific times, or weekly on designated days.
+- **Key Recurring Operations**:
+  - **Market Scans**: Regular technical and fundamental analysis of target cryptocurrencies.
+  - **Portfolio Rebalancing**: Automatic portfolio adjustments to maintain target allocations.
+  - **Trade Verification**: Regular checks of recent trading activity to identify patterns and verify performance.
+  - **Sentiment Analysis**: Scheduled sentiment monitoring across social media, news, and other sources.
+  
+- **Execution Tracking**: All recurring operations are tracked with detailed execution history, success rates, and error reporting.
+- **Dynamic Management**: Operations can be paused, resumed, or modified as market conditions change.
+
+This automated scheduling system ensures that critical analysis and trading functions occur consistently even in fast-moving markets, maintaining strategic discipline while adapting to changing conditions.
+
 ## Installation
 
 1. Clone this repository:
 ```
-git clone <repository-url>
-cd crew_chain
-```
-
-2. Install the required dependencies:
-```
-pip install -r requirements.txt
-```
-
-## Usage
-
-Run the cryptocurrency trading system:
-
-```
-python -m src.crew_chain.crypto_trading_main run --crypto BTC
-```
-
-You can specify which cryptocurrency to analyze and trade by changing the `--crypto` parameter (default is BTC).
-
-## How It Works
-
-1. The **Market Analyst** examines overall market conditions, sentiment, and trends using deep search tools
-2. The **Crypto Researcher** analyzes the specific cryptocurrency's fundamentals, technicals, and price patterns
-3. The **Trading Strategist** develops a bidirectional trading strategy with entry/exit points for both long and short positions
-4. The **Trade Executor** implements the strategy with proper discipline and records all trading activity
-
-## Custom Tools
-
-The system includes sophisticated tools for cryptocurrency analysis:
-
-- **CryptoPriceCheckTool**: Gets real-time cryptocurrency price and market data
-- **CryptoHistoricalDataTool**: Retrieves historical price data for technical analysis
-- **TwitterSentimentAnalysisTool**: Analyzes Twitter sentiment about cryptocurrencies
-- **DeepMarketAnalysisTool**: Performs market analysis using the M-DQN approach
-- **MultilayerSentimentAnalysisTool**: Conducts advanced sentiment analysis across multiple data sources
-- **DeepLearningPredictionTool**: Generates price predictions using neural network models
-
-## Configuration
-
-You can modify the agent configurations in `src/crew_chain/config/crypto_agents.yaml` and task configurations in `src/crew_chain/config/crypto_tasks.yaml`.
-
-## Output
-
-The system generates a comprehensive trading report that includes:
-- Market analysis with sentiment insights
-- Cryptocurrency research with bidirectional perspectives
-- Trading strategy with entry/exit points for both long and short positions
-- Trade execution details and performance tracking
-
-## References
-
-The AI models in this system are based on research findings from:
-
-- Yasir, M., et al. (2023), "Deep-learning-assisted business intelligence model for cryptocurrency forecasting using social media sentiment", Journal of Enterprise Information Management
-- Research on sentiment analysis in cryptocurrency markets demonstrates that incorporating social media sentiment data can significantly improve the performance of prediction models, approximately doubling the overall accuracy.
