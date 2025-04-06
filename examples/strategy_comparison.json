@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Conservative Strategy",
+    "config_path": "config/crypto_agents_conservative.yaml",
+    "description": "A conservative trading strategy with focus on risk management",
+    "parameters": {
+      "entry_threshold": 0.75,
+      "position_size_pct": 5.0,
+      "stop_loss_pct": 3.0,
+      "take_profit_pct": 5.0,
+      "max_positions": 3
+    }
+  },
+  {
+    "name": "Balanced Strategy",
+    "config_path": "config/crypto_agents.yaml",
+    "description": "A balanced approach to risk and reward",
+    "parameters": {
+      "entry_threshold": 0.65,
+      "position_size_pct": 10.0,
+      "stop_loss_pct": 5.0,
+      "take_profit_pct": 10.0,
+      "max_positions": 5
+    }
+  },
+  {
+    "name": "Aggressive Strategy",
+    "config_path": "config/crypto_agents_aggressive.yaml",
+    "description": "An aggressive strategy prioritizing higher returns",
+    "parameters": {
+      "entry_threshold": 0.5,
+      "position_size_pct": 15.0,
+      "stop_loss_pct": 10.0,
+      "take_profit_pct": 20.0,
+      "max_positions": 8
+    }
+  },
+  {
+    "name": "Sentiment-Focused Strategy",
+    "description": "A strategy focused heavily on sentiment analysis",
+    "parameters": {
+      "entry_threshold": 0.7,
+      "sentiment_weight": 0.8,
+      "technical_weight": 0.2,
+      "position_size_pct": 8.0,
+      "stop_loss_pct": 7.0,
+      "take_profit_pct": 12.0
+    }
+  },
+  {
+    "name": "Technical-Focused Strategy",
+    "description": "A strategy focused primarily on technical indicators",
+    "parameters": {
+      "entry_threshold": 0.7,
+      "sentiment_weight": 0.2,
+      "technical_weight": 0.8,
+      "position_size_pct": 8.0,
+      "stop_loss_pct": 6.0,
+      "take_profit_pct": 12.0
+    }
+  }
+] 

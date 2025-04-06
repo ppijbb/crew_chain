@@ -66,6 +66,18 @@ The system employs a sophisticated bidirectional trading approach:
 
 ## Advanced Features
 
+### Sandbox Trading for Agent Evaluation
+
+The system includes a comprehensive sandbox trading environment for testing and evaluating AI trading agents with virtual funds before deploying with real capital:
+
+- **Virtual Trading Accounts**: Create and manage virtual trading accounts with configurable initial balances
+- **Real Market Data**: Access real-time cryptocurrency prices while trading with virtual funds
+- **Performance Evaluation**: Track comprehensive metrics including profit/loss, trade success rate, and portfolio value
+- **Strategy Comparison**: Compare multiple trading strategies under identical market conditions
+- **Backtesting**: Test strategies against historical data to evaluate performance over past market conditions
+
+The sandbox environment provides a risk-free way to evaluate the AI agents' trading capabilities, optimize strategies, and build confidence before connecting to real exchange accounts.
+
 ### Investment Validation System
 
 The cryptocurrency trading system includes a robust investment validation system that verifies trading decisions before execution. This adds an essential layer of risk management and helps ensure that all trading actions align with the overall strategy. 
